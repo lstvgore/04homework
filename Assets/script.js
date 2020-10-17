@@ -1,71 +1,73 @@
-var chars = ["A", "a", "B", "b", "C", "c","D", "d", "E", "e", "F", "f","G", "g", "H", "h", "I", "i","J", "j", "K", "k", "L", "l","M", "m", "N", "n", "O", "o","P", "p", "Q", "q", "R", "r","S", "s", "T", "t", "U", "u","V", "v", "W", "w", "X", "x","Y", "y", "Z", "z"]
-var numbs = [0,1,2,3,4,5,6,7,9]
-var specialchars = ["!","@","^","$","&"]
-var emoji = ["🌙","⚫️","🐚","🦄","👽"]
 
+let generateBtn = document.querySelector("#generate");
 
-function generate(){
+let chars = ["A", "a", "B", "b", "C", "c","D", "d", "E", "e", "F", "f","G", "g", "H", "h", "I", "i","J", "j", "K", "k", "L", "l","M", "m", "N", "n", "O", "o","P", "p", "Q", "q", "R", "r","S", "s", "T", "t", "U", "u","V", "v", "W", "w", "X", "x","Y", "y", "Z", "z"]
+let numbs = [0,1,2,3,4,5,6,7,9]
+let specialchars = ["!","@","^","$","&"]
+let emoji = ["🌙","⚫️","🐚","🦄","👽"]
 
-  var possible = []
+let passwordText = document.querySelector("#password");
 
-  var length = parseInt (prompt("How long does this password need to be?"))
-  
-  if (length < 8 || length > 128) {
-    alert ("The password needs 8 characters or More")
-   } else {
-  
-    var charsTrue = confirm("Do you want Charters?")
-    var numbsTrue = confirm("Do you want Numbers?")
-    var specialcharsTrue = confirm("Do you want Special Charter's?")
-    var emojiTrue = confirm("Do you want Emojis?")
-  
-  
-    if (charsTrue) { possible.push(chars)}
-    if (numbsTrue) { possible.push(numbs)}
-    if (specialcharsTrue) { possible.push(specialchars)}
-    if (emojiTrue) { possible.push(emoji)}
-  
-    var pw = ""
-  while(pw.length < length ){
-  
-    for(let i = 0; i < possible.length; i++){
-      if (pw.length < length){
-      let rand = Math.floor(Math.random() * possible[i].length)
-     
-      pw += possible[i][rand]
-      }
-  
-  
-      console.log(pw, `password length: ${pw.length}`)
-  
-    }
-  }  
-    }
-  }  
-  
-   
-function random() {
-  // var pw = ""
-  // while(pw.length < length ){
-  
-  //   for(let i = 0; i < possible.length; i++){
-  //     if (pw.length < length){
-  //     let rand = Math.floor(Math.random() * possible[i].length)
-     
-  //     pw += possible[i][rand]
-  //     }
-  
-  //     console.log(pw, `password length: ${pw.length}`)
-  
-  //   }
-}
-
-document.querySelector("#generate"),addEventListener("click", generate)
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
+
+  passwordText.value = "";
+
+  let newPassword = [];
+
+  let passwordLength = parseInt (prompt ("Please enter a number between 8 and 128"));
+
+  if (passwordLength < 8) {
+    alert ("Password length required at least 8 characters")
+    return;
+  };
+
+  if (passwordLength > 128) {
+    alert ("Password length required less than or equal to 128 characters")
+    return;
+  };
+
+  if (isNaN(passwordLength)) {
+    alert("Password generator must be a number between 8 and 128")
+    return;
+  };
+
+  // Confirm the type of characters user wants to use in password generator
+  
+  let chars = confirm ("Do you want to use chracters?");
+  let numbs = confirm ("Do you want to use numbers?");
+  let specialchars = confirm ("Do you want to use Special?");
+  let emoji = confirm ("Do you want to use emojis?");
+
+  // Check if user select at least one type of character
+
+  if (chars === false && numbs === false && specialchars ===false &&
+    emoji === false ) {
+      alert ("Please select at least one type of character")
+    };
+
+  // Option character types are selected
+
+  if (chars === true) {newPassword.push(chars)};
+  if (numbs === true) {newPassword.push(numbs)};
+  if (specialchars === true) {newPassword.push(specialchars)};
+  if (emoji === true) {newPassword.push(emoji)};
+
+  let pwd = "";
+
+  while (pwd.length < passwordLength) {
+    for (let i = 0; i < newPassword.length; i++) {
+      if (pwd.length < passwordLength) {
+        let randomchars = Math.floor(Math.random() *newPassword[i].length)
+        pwd += newPassword[i][randomchars]
+      }
+    }    
+  }
+
+
+  passwordText.value = pwd;
+
 }
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
