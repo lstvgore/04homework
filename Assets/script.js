@@ -24,8 +24,19 @@ function generate(){
     if (numbsTrue) { possible.push(numbs)}
     if (specialcharsTrue) { possible.push(specialchars)}
     if (emojiTrue) { possible.push(emoji)}
-  
-    var pw = ""
+
+  var passwordOptions ={
+    chars:chars,
+    numbs:numbs,
+    specialchars:specialchars,
+    emoji:emoji 
+  }
+return passwordOptions
+   
+  }
+   }
+function random() {
+  var pw = ""
   while(pw.length < length ){
   
     for(let i = 0; i < possible.length; i++){
@@ -35,12 +46,18 @@ function generate(){
       pw += possible[i][rand]
       }
   
-  
       console.log(pw, `password length: ${pw.length}`)
   
     }
-  }
-   }
 }
 
 document.querySelector("#generate"),addEventListener("click", generate)
+// Write password to the #password input
+
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
