@@ -13,7 +13,7 @@ function writePassword() {
 
   passwordText.value = "";
 
-  let newPassword = [];
+
 
   let passwordLength = parseInt (prompt ("Please enter a number between 8 and 128"));
 
@@ -34,24 +34,27 @@ function writePassword() {
 
   // Confirm the type of characters user wants to use in password generator
   
-  let chars = confirm ("Do you want to use chracters?");
-  let numbs = confirm ("Do you want to use numbers?");
-  let specialchars = confirm ("Do you want to use Special?");
-  let emoji = confirm ("Do you want to use emojis?");
+  let hasChars = confirm ("Do you want to use chracters?");
+  let hasNumbs = confirm ("Do you want to use numbers?");
+  let hasSpecialchars = confirm ("Do you want to use Special?");
+  let hasEmoji = confirm ("Do you want to use emojis?");
 
   // Check if user select at least one type of character
 
-  if (chars === false && numbs === false && specialchars ===false &&
-    emoji === false ) {
+  if (hasChars === false && hasNumbs === false && hasSpecialchars ===false &&
+    hasEmoji === false ) {
       alert ("Please select at least one type of character")
     };
 
   // Option character types are selected
 
-  if (chars === true) {newPassword.push(chars)};
-  if (numbs === true) {newPassword.push(numbs)};
-  if (specialchars === true) {newPassword.push(specialchars)};
-  if (emoji === true) {newPassword.push(emoji)};
+  let newPassword = [];
+
+  if (hasChars === true) {newPassword.push(chars)};
+  if (hasNumbs === true) {newPassword.push(numbs)};
+  if (hasSpecialchars === true) {newPassword.push(specialchars)};
+  if (hasEmoji === true) {newPassword.push(emoji)};
+console.log (newPassword)
 
   let pwd = "";
 
@@ -64,7 +67,7 @@ function writePassword() {
     }    
   }
 
-
+console.log(pwd)
   passwordText.value = pwd;
 
 }
